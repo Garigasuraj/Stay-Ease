@@ -1,0 +1,71 @@
+.apartment_listing{
+    list-style: none;
+}
+.w-80{
+    width: 70%;
+}
+.w-35{
+    width: 30%;
+}
+.w-40{
+    width: 40%;
+}
+.decoration span:hover{
+    width: 75%;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.display_lisitng{
+    display: flex;
+    justify-content: space-between;
+}
+.createPost{
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    box-shadow: 0px 0px 20px rgba(21, 39, 52, 0.15);
+    padding: 10px 20px;
+}
+.navbar{
+    background-color: rgb(229, 229, 229) !important;
+}
+.listingView{
+    width: 100% !important;
+}
+.card-text{
+    font-size: small;
+}
+.card-img-top{
+    border-radius: 10px;
+    width: 100% !important;
+    object-fit: cover !important;
+    height: 20rem !important;
+}
+.flex{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+}
+
+/* Star style for reviews */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse; /* Reverse the order visually */
+    justify-content: start;
+}
+.star-rating input[type="radio"] {
+    display: none; /* Hide radio buttons */
+}
+.star-rating label {
+    font-size: 2rem;
+    color: gray;
+    cursor: pointer;
+}
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: gold;
+}

@@ -1,0 +1,28 @@
+<% layout("/layouts/boilerPlate") %>
+<body>
+    <form  class="w-75 mt-2 offset-1" method="post" action="/api/update/<%=data._id%>?_method=PATCH">
+        <div>
+            <Label for="title">Title:</Label>
+            <input class="form-control" id="title" name="update[title]"type="text" value="<%= data.title %>"></input>
+        </div>
+        <div>
+            <Label for="des">Description:</Label>
+            <textarea class="form-control" id="des" name="update[description]" cols="40" rows="5" type="text"><%= data.description %>there</textarea>
+        </div>
+        <div>
+            <Label for="price">Price:&#36;</Label>
+            <input class="form-control" id="price" name="update[price]" type="number" value="<%= data.price %>"/>
+        </div>
+        <div>
+            <label for="location">Location:</label>
+            <input class="form-control" id="location" name="update[location]" type="text" value="<%= data.location %>" />
+        </div>
+        <div>
+            <label for="country">Country:</label>
+            <input class="form-control" id="country" name="update[country]" type="text" value="<%= data.country %>" />
+        </div>
+        <br><br>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+</body>
