@@ -1,5 +1,6 @@
-<% layout("/layouts/boilerPlate") %>
-<body>
+<% layout("../layouts/boilerPlate") %>
+<body class="d-flex flex-column min-vh-100">
+  <main class="flex-grow-1 d-flex flex-column justify-content-center mt-0">
         <h1 class="w-75 mt-2 offset-1">Create a new listing</h1>
         <div class="createPost">
             <form method="post" action="/api/createPost" class="needs-validation" novalidate>
@@ -27,7 +28,7 @@
                 <br><br>
                 <button class="btn btn-primary">Submit</button>
             </form>
-        </div>
+        </div></main>
     <script>
         (() => {
   'use strict'

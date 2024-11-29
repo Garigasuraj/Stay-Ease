@@ -8,7 +8,10 @@
         <%= error%>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<% }%>
-
-
+<%}else if(login.length>0){ %>
+    <div class="alert mt-3 d-flex justify-content-between alert-danger w-25 offset-9" role="alert">
+        <%= login%>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<%} %>
   

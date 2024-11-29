@@ -7,6 +7,12 @@ const flash =  require('connect-flash')
 const method_override = require('method-override');
 const ejsMate = require('ejs-mate')
 const CustomError = require('./util/CustomError.js')
+
+const passport = require('passport')
+const Local_strategy = require('passport-local')
+const User = require('./Models/loginSchema.js')
+
+const userLogin = require('./Routes/login.js')
 const listing = require('./Routes/listing.js')
 const review = require('./Routes/review.js')
 // const SQL_connection = require('./SQL/SQLServer.js')
@@ -25,24 +31,46 @@ app.engine('ejs',ejsMate)
 // EJS Template response 
 //app.set is used for set application level configuration
 app.set('view engine','ejs')
-app.set('views',path.join(__dirname,"Ejs_template"))
+// use this for multiple views 
+app.set('views',[
+    path.join(__dirname,"Ejs_template/Login"),
+    path.join(__dirname,"Ejs_template"),
+    path.join(__dirname,"Ejs_template/Listing")
+])
+
 // middlewear for serving static files
 app.use(express.static(path.join(__dirname,'Public/javascript')))
-
-app.use(express.static(path.join(__dirname,'public/Styles')))
+app.use(express.static(path.join(__dirname,'Public/Styles')))
+app.use(express.static(path.join(__dirname,'Public/images')))
 
 const expressSession = {
     secret: "secretkey",
-    resave: false, saveUninitialized: true
+    resave: false, saveUninitialized: true,
+    expires: Date.now() + 7*40*60*60*1000,
+    maxage: 7*24*60*60*1000,
+    httpOnly: true
 }
 
 app.use(session(expressSession))
 app.use(flash())
 
+// implementing the user auth
+app.use(passport.initialize());
+app.use(passport.session());
+
+// use static authenticate method of model in LocalStrategy
+passport.use(new Local_strategy(User.authenticate()));
+
+// use static serialize and deserialize of model for passport session support (maintain consistant login)
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Middleware to show flash messages
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success")
     res.locals.error = req.flash("error")
+
+    res.locals.login = req.flash("login")
     next()
 })
 
@@ -62,6 +90,8 @@ let checkToken = ((req,res,next) =>{
 app.use('/api',listing)
 // route handler for review
 app.use('/api',review)
+
+app.use('/api',userLogin)
 
 // Global Custom Error middlewear
 app.use(CustomError)

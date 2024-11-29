@@ -1,0 +1,76 @@
+<% layout("../layouts/loginBoilerPlate") %>
+<body class="d-flex flex-column min-vh-100 m-0">
+        <!-- Main Content -->
+    <main class="flex-grow-1 d-flex flex-column justify-content-center mt-0">
+        <div class="row align-items-center justify-content-center">
+                <!-- Logo -->
+            <div class="col-md-auto text-center mb-4 mb-md-0">
+                    <img id="logo" src="/Air_bnb_logo.jpeg" alt="Logo" class="rounded-circle img-fluid" style="max-width: 350px;" />
+                </div>
+
+                <!-- Vertical Divider -->
+                <div class="col-auto px-5 d-none d-md-block">
+                    <div class="border-start border-2 border-secondary" style="height: 450px;"></div>
+                </div>
+
+                <!-- Signup Form -->
+                <div class="col-md-5">
+                    <h1 class="mt-0 mb-3">Sign Up</h1>
+                    <form class="mt-4 needs-validation" novalidate method="post" action="/api/usersignup">
+                        <!-- Username Input -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username *</label>
+                            <input type="text" class="form-control" id="username" name="register[username]" required>
+                            <div class="invalid-feedback">Username is required.</div>
+                            <div id="usernameHelp" class="form-text">Username must be unique.</div>
+                        </div>
+
+                        <!-- Email Input -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address *</label>
+                            <input type="email" class="form-control" id="email" name="register[email]" required>
+                            <div class="invalid-feedback">Email is required.</div>
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+
+                        <!-- Password Input with Show/Hide Password -->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <label for="password" class="form-label">Password *</label>
+                                <a href="#" id="togglePassword" class="text-primary" style="cursor: pointer; text-decoration: none;">Show</a>
+                            </div>
+                            <input type="password" class="form-control" id="password" name="register[password]" required>
+                            <div class="invalid-feedback">Password is required.</div>
+                        </div>
+
+                        <!-- Re-enter Password Input -->
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Re-enter Password *</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                            <div class="invalid-feedback">Please confirm your password.</div>
+                        </div>
+
+                        <!-- Login Button -->
+                        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+
+                        <!-- Sign Up Link -->
+                        <div class="text-center mt-3">
+                            <span>Already have an account?</span>
+                            <a href="/signup" class="text-primary">Sign In</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <script>
+            const togglePassword = document.querySelector('#togglePassword');
+            const passwordField = document.querySelector('#exampleInputPassword1');
+    
+            togglePassword.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent the anchor link from navigating
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.textContent = type === 'password' ? 'Show' : 'Hide';
+            });
+        </script>
+</body>
