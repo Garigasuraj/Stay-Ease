@@ -4,15 +4,28 @@ const router = express.Router({mergeParams:true})
 const ExpressError = require('../ErrorClass/errorClass.js')
 const asyncErrorHandler =  require('../util/AsyncErrorHandler.js')
 const airBnb = require("../Models/listingSchema.js")
-const joiValidation = require('../serverValidation/joiValidation.js');
+const {createPostValidation} = require('../serverValidation/joiValidation.js');
 
 router.get('/home', asyncErrorHandler(async (req,res,next)=>{
     let listing_data = await airBnb.find({})
     res.render('home.ejs',{listing_data})
 }))
 
+let validate_deleted_listing = (async(req,res,next)=>{
+    let {id} = req.params
+    let list_data = await airBnb.findById(id)
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        next(new ExpressError(500,"Invalid Id"))
+    }
+    if(!list_data){
+        req.flash("error","The post you are looking for got deleted!!") 
+        return res.redirect('/api/home')
+    }
+    next()
+})
+
 // To read specific post (READ)
-router.get('/specific_item/:id',asyncErrorHandler(async(req,res,next)=>{
+router.get('/specific_item/:id',validate_deleted_listing,asyncErrorHandler(async(req,res,next)=>{
     let {id} = req.params
     if(!mongoose.Types.ObjectId.isValid(id)){
         next(new ExpressError(500,"Invalid / Null response from Database"))
@@ -22,15 +35,16 @@ router.get('/specific_item/:id',asyncErrorHandler(async(req,res,next)=>{
     res.render('readListing.ejs',{listData})
 }))
 
+
 // To create a post (CREATE)
 router.get('/createNew',(req,res,next)=>{
     res.render('createPost.ejs')
 })
 
 let validateCreateFormData = (req,res,next)=>{
-    const {error, value} = joiValidation.validate(req.body.create)
+    const {error, value} = createPostValidation.validate(req.body.create)
     console.log(`JOI Error: ${error}`)
-    if(error){
+    if(error){ // CHECK
         let err = `Error updating data: ${error.details[0].message}`
         return res.render('flashMsgRender.ejs',{err});
     }
@@ -59,7 +73,7 @@ router.get('/edit/:id',asyncErrorHandler(async(req,res,next)=>{
 }))
 
 const validateUpdatedFormData = (req, res, next) => {
-    const { error, value } = joiValidation.validate(req.body.update)
+    const { error, value } = createPostValidation.validate(req.body.update)
     if (error) {
         // console.log(`JOI Error: ${error.details.map(err => err.message).join(", ")}`);
         let err = `Error updating data: ${error.details[0].message}`
