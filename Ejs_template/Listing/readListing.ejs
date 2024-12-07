@@ -1,12 +1,11 @@
 <% layout("../layouts/boilerPlate") %>
 <body>
-  
     <div class="container-fluid d-flex flex-column align-items-center w-75">  
       <h5 class="card-title mb-2 fs-1 text-start mt-4 w-80"><%= listData.title %></h5>
         <div class="card d-flex w-80 h-50">
-          <img src="<%= listData.image %>" style="width: 55rem; height: 32rem; object-fit: cover;" class="img-fluid rounded" alt="Listing Image">
+          <img src="<%= listData.image.url %>" style="width: 55rem; height: 32rem; object-fit: cover;" class="img-fluid rounded" alt="Listing Image">
           <div class="card-body">
-          
+          <h5><i>Owner By:</i> <%= listData.listOwner.username %></h5>
             <p class="card-text fs-4"><%= listData.description %></p>
             <div>Price: &#36; <%= listData.price %></div>
             <div>Location: <%= listData.location %>, <%= listData.country %></div>

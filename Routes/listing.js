@@ -1,106 +1,31 @@
-const express = require('express');
-const mongoose = require('mongoose')
+const express = require('express')
 const router = express.Router({mergeParams:true})
-const ExpressError = require('../ErrorClass/errorClass.js')
+const multer  = require('multer')
+const {cloudinary,storage} = require('../Cloudinary.js')
+const upload = multer({ storage })
 const asyncErrorHandler =  require('../util/AsyncErrorHandler.js')
-const airBnb = require("../Models/listingSchema.js")
-const {createPostValidation} = require('../serverValidation/joiValidation.js');
+const {isLoggedIn,validateUpdatedFormData,validateCreateFormData} = require('../middleware/userSession.js')
+const {validate_deleted_listing} = require('../Controller/listing.js')
+const controller = require('../Controller/listing.js')
 
-router.get('/home', asyncErrorHandler(async (req,res,next)=>{
-    let listing_data = await airBnb.find({})
-    res.render('home.ejs',{listing_data})
-}))
 
-let validate_deleted_listing = (async(req,res,next)=>{
-    let {id} = req.params
-    let list_data = await airBnb.findById(id)
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        next(new ExpressError(500,"Invalid Id"))
-    }
-    if(!list_data){
-        req.flash("error","The post you are looking for got deleted!!") 
-        return res.redirect('/api/home')
-    }
-    next()
-})
+router.get('/home',isLoggedIn,asyncErrorHandler(controller.homePage))
 
 // To read specific post (READ)
-router.get('/specific_item/:id',validate_deleted_listing,asyncErrorHandler(async(req,res,next)=>{
-    let {id} = req.params
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        next(new ExpressError(500,"Invalid / Null response from Database"))
-    }
-    let listData = await airBnb.findById(id).populate('reviews')
-    // console.log(listData)
-    res.render('readListing.ejs',{listData})
-}))
-
+router.get('/specific_item/:id',isLoggedIn,validate_deleted_listing,asyncErrorHandler(controller.viewListing))
 
 // To create a post (CREATE)
-router.get('/createNew',(req,res,next)=>{
-    res.render('createPost.ejs')
-})
+router.get('/createNew',isLoggedIn,controller.viewCreateListing)
 
-let validateCreateFormData = (req,res,next)=>{
-    const {error, value} = createPostValidation.validate(req.body.create)
-    console.log(`JOI Error: ${error}`)
-    if(error){ // CHECK
-        let err = `Error updating data: ${error.details[0].message}`
-        return res.render('flashMsgRender.ejs',{err});
-    }
-    next()
-}
-
-router.post('/createPost',validateCreateFormData, asyncErrorHandler(async(req,res,next)=>{
-    let {create} = req.body
-    let insert_data = new airBnb(create)
-    let new_post = await insert_data.save() // saving the data
-    if(new_post){
-        req.flash("success","Successfully created post!!")
-    }else{
-        req.flash("error","Error creating post!!")
-    }
-    res.redirect("/api/home")
-    } 
-))
+router.post('/createPost',isLoggedIn,upload.single('create[image]'),asyncErrorHandler(controller.createPost))
 
 // To edit the specific post (UPDATE)
-router.get('/edit/:id',asyncErrorHandler(async(req,res,next)=>{
-    let {id} = req.params
-    let data = await airBnb.findById(id)
-    // console.log(data)
-    res.render('editListing.ejs',{data})
-}))
+router.get('/edit/:id',isLoggedIn, asyncErrorHandler(controller.viewUpdateListing))
 
-const validateUpdatedFormData = (req, res, next) => {
-    const { error, value } = createPostValidation.validate(req.body.update)
-    if (error) {
-        // console.log(`JOI Error: ${error.details.map(err => err.message).join(", ")}`);
-        let err = `Error updating data: ${error.details[0].message}`
-        return res.render('flashMsgRender.ejs',{err});
-    }
-    next();
-};
-
-router.patch('/update/:id',validateUpdatedFormData,asyncErrorHandler(async(req,res,next)=>{
-    let {id} = req.params
-    let {update} = req.body
-  
-    let post_update = await airBnb.findByIdAndUpdate(id,update,{new:true,runValidators:true})
-
-    if(post_update){
-        req.flash("success","Successfully updated the post!!")}
-    res.redirect("/api/home")
-}))
+router.patch('/update/:id',isLoggedIn, upload.single('update[image]'),validateUpdatedFormData,asyncErrorHandler(controller.updateListing))
 
 // To perform delete operation (DELETE)
-router.delete('/delete/:id',asyncErrorHandler(async(req,res,next)=>{
-    let {id} = req.params
-    let post_delete = await airBnb.findByIdAndDelete(id,{new:true})
-    if(post_delete){
-        req.flash("error","Post deleted successfully!!")}
-    res.redirect("/api/home")
-}))
+router.delete('/delete/:id',isLoggedIn, asyncErrorHandler(controller.deleteListing))
 
 module.exports = router
 

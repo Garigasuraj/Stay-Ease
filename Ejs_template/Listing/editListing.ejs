@@ -1,6 +1,8 @@
 <% layout("../layouts/boilerPlate") %>
-<body>
-    <form  class="w-75 mt-2 offset-1" method="post" action="/api/update/<%=data._id%>?_method=PATCH">
+<body class="flex-column min-vh-100">
+    <main class="flex-grow-1 mt-4 d-flex flex-column justify-content-center align-items-center mt-0">
+    <form  class="w-50 mt-2" method="post" action="/api/update/<%=data._id%>?_method=PATCH" enctype="multipart/form-data">
+        <h1>Edit</h1>
         <div>
             <Label for="title">Title:</Label>
             <input class="form-control" id="title" name="update[title]"type="text" value="<%= data.title %>"></input>
@@ -21,8 +23,13 @@
             <label for="country">Country:</label>
             <input class="form-control" id="country" name="update[country]" type="text" value="<%= data.country %>" />
         </div>
+        <label for="inputGroupFile02">Image </label>
+            <div class="input-group mb-3">
+                <input type="file" name="update[image]" class="form-control" id="inputGroupFile02">
+            </div>
         <br><br>
+
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
-
+    </main>
 </body>

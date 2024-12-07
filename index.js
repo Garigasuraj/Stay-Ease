@@ -1,3 +1,6 @@
+if(process.env.NODE_ENV != "production"){
+    require('dotenv').config()
+}
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -47,7 +50,7 @@ const expressSession = {
     secret: "secretkey",
     resave: false, saveUninitialized: true,
     expires: Date.now() + 7*40*60*60*1000,
-    maxage: 7*24*60*60*1000,
+    Maxage: 7*24*60*60*1000,
     httpOnly: true
 }
 
@@ -71,20 +74,10 @@ app.use((req,res,next)=>{
     res.locals.error = req.flash("error")
 
     res.locals.login = req.flash("login")
+    res.locals.userlogin =  req.user
     next()
 })
-
 //======================================
-// Token verification
-let checkToken = ((req,res,next) =>{
-    let Token = req.query.token
-    if(Token == "success"){
-       next()
-    }
-    else{
-        res.status(404).send("<h1> Permission denied </h1>")
-    }
-})
 
 // route handler for home pagae
 app.use('/api',listing)

@@ -6,7 +6,7 @@
 
             <div class="card col p-0 m-3 shadow border-0">
                 <a style="text-decoration: none; color: black;" href="/api/specific_item/<%=ele._id%>">
-                <img src="<%= ele.image%>" class="card-img-top" alt="Listing Image">
+                <img src="<%= ele.image.url%>" class="card-img-top" alt="Listing Image">
                 <div class="card-body">
                   <h5 class="card-title"><%= ele.title %></h5>
                   <div class="card-text"><%= ele.location%>,<%= ele.country%></div>

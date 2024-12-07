@@ -3,6 +3,8 @@ const data = require('./data.js')
 const { ref, required } = require('joi')
 const { description, type } = require('../serverValidation/joiValidation.js')
 const server_file = require('../index.js')
+const airBnb = require("../Models/listingSchema.js")
+const Review = require('../Models/reviewSchema.js')
 
 async function main(){
     await mongoose.connect('mongodb://127.0.0.1:27017/AirBNB') // /AirBNB is a path which data get stores
@@ -23,6 +25,9 @@ const insert_data = async ()=>{
     try{
         await airBnb.deleteMany({})
         await Review.deleteMany({})
+        data.listingdata = data.listingdata.map(ele => ({...ele,
+            image:{url: ele.image},
+            listOwner:"674a3c9948f162281c22dd76"}))
         await airBnb.insertMany(data.listingdata)
         console.log("Data inserted successfull")
     }

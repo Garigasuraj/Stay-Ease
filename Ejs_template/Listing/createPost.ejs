@@ -3,26 +3,30 @@
   <main class="flex-grow-1 d-flex flex-column justify-content-center mt-0">
         <h1 class="w-75 mt-2 offset-1">Create a new listing</h1>
         <div class="createPost">
-            <form method="post" action="/api/createPost" class="needs-validation" novalidate>
+            <form method="post" action="/api/createPost" class="needs-validation" novalidate enctype="multipart/form-data">
                 <label for="title">Title: </label>
                 <input class="form-control" id="title" type="text" name="create[title]" required/>
                 <div class="invalid-feedback">Please provide Title</div>
+
                 <label for="des">Description: </label>
                 <textarea class="form-control" id="des" name="create[description]" cols="40" rows="5" required></textarea>
                 <div class="invalid-feedback">Please provide Description</div>
+
                 <label for="price">Price: </label>
                 <input class="form-control" id="price" type="number" name="create[price]" required/>
                 <div class="invalid-feedback">Please provide Price</div>
+
                 <label for="location">Location: </label>
                 <input class="form-control" id="location" type="text" name="create[location]" required/>
-                <div claspras="invalid-feedback">Please provide Location</div>
+
+
                 <label for="country">Country: </label>
                 <input class="form-control" id="country" type="text" name="create[country]" required/>
                 <div class="invalid-feedback">Please provide Country</div><br>
+
                 <label for="inputGroupFile02">Image </label>
                 <div class="input-group mb-3">
                     <input type="file" name="create[image]" class="form-control" id="inputGroupFile02">
-                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
                 </div>
                 
                 <br><br>

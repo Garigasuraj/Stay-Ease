@@ -1,4 +1,4 @@
-<% layout("../layouts/loginBoilerPlate") %>
+<% layout("../layouts/boilerPlate") %>
 <body class="d-flex flex-column min-vh-100">
         <!-- Main Content -->
         <main class="flex-grow-1 d-flex flex-column justify-content-center mt-0">
@@ -11,11 +11,11 @@
 
             <!-- Login Form -->
             <div class="col-12 col-md-6 col-lg-4 mt-4">
-                <form class="needs-validation" novalidate method="post" action="/api/loginPage">
+                <form class="needs-validation" novalidate method="post" action="/api/userLogin/signIn">
                     <!-- Email Input -->
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Username</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" name="login[username]" aria-describedby="emailHelp" required>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="username" aria-describedby="emailHelp" required>
                         <div class="invalid-feedback">Incorrect email</div>
                     </div>
 
@@ -25,7 +25,7 @@
                             <label for="exampleInputPassword1" class="form-label">Password</label>
                             <a href="#" id="togglePassword" class="text-primary" style="cursor: pointer; text-decoration: none;">Show</a>
                         </div>
-                        <input type="password" class="form-control" id="exampleInputPassword1" name="login[password]" required>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
                         <div class="invalid-feedback">Incorrect password</div>
                     </div>
 
