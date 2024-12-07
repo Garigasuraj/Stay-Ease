@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
+    "@mapbox/mapbox-sdk": "^0.16.1",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "cloudinary": "^2.5.1",
