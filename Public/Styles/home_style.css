@@ -69,3 +69,11 @@
 .star-rating label:hover ~ label {
     color: gold;
 }
+.text-gradient {
+    background: linear-gradient(270deg, #b65544, #d28c22, #FF5722);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.heading_login_text{
+    font-size: 80px;
+}

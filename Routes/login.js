@@ -7,10 +7,15 @@ const controller = require('../Controller/user.js')
 
 // handling the user signI
 router.get('/loginPage',(controller.login))
-
-router.post('/userLogin/signIn',
+.post('/loginPage',
     redirectUrl,
-    passport.authenticate('local',{failureRedirect:'/api/loginPage',failureFlash:true}),
+    passport.authenticate('local',{failureRedirect:'/api/loginPage',failureFlash:true}), (req,res,next)=>{
+        if(req.user.role !== process.env.CUSTOMER_KEY){
+            req.flash("error","Invalid User login ")
+            return res.redirect('/api/loginPage')
+        }
+        next()
+    },
     asyncErrorHandler(controller.authenticate))
 
 // handling the user signUp

@@ -1,22 +1,24 @@
 <% layout("../layouts/boilerPlate") %>
+<!-- Host sign up-->
+
 <body class="d-flex flex-column min-vh-100 m-0">
         <!-- Main Content -->
     <main class="flex-grow-1 d-flex flex-column justify-content-center mt-0">
         <div class="row align-items-center justify-content-center">
                 <!-- Logo -->
-            <div class="col-md-auto text-center mb-4 mb-md-0">
-                    <img id="logo" src="/stayEase.webp" alt="Logo" class="rounded-circle img-fluid" style="max-width: 350px;" />
-                </div>
+            <!-- <div class="col-md-auto text-center mb-4 mb-md-0">
+                    <img id="logo" src="/Air_bnb_logo.jpeg" alt="Logo" class="rounded-circle img-fluid" style="max-width: 350px;" />
+                </div> -->
 
                 <!-- Vertical Divider -->
-                <div class="col-auto px-5 d-none d-md-block">
+                <!-- <div class="col-auto px-5 d-none d-md-block">
                     <div class="border-start border-2 border-secondary" style="height: 450px;"></div>
-                </div>
+                </div> -->
 
                 <!-- Signup Form -->
                 <div class="col-md-5">
-                    <h1 class="mt-0 mb-3 text-gradient heading_login_text">Sign Up</h1>
-                    <form class="mt-4 needs-validation" novalidate method="post" action="/api/usersignup">
+                    <h1 class="mt-0 mb-3 text-gradient heading_login_text">Host signup</h1>
+                    <form class="mt-4 needs-validation" novalidate method="post" action="/api/hostSignUp">
                         <!-- Username Input -->
                         <div class="mb-3">
                             <label for="username" class="form-label">Username *</label>
@@ -56,7 +58,7 @@
                         <!-- Sign Up Link -->
                         <div class="text-center mt-3">
                             <span>Already have an account?</span>
-                            <a href="/signup" class="text-primary">Sign In</a>
+                            <a href="/api/hostLoginPage" class="text-primary">Sign In</a>
                         </div>
                     </form>
                 </div>

@@ -1,17 +1,17 @@
 <% layout("../layouts/boilerPlate") %>
-<body class="d-flex flex-column min-vh-100">
-        <!-- Main Content -->
-        <main class="flex-grow-1 d-flex flex-column justify-content-center mt-0">
-    <div class="container">
-        <div class="row justify-content-center">
+<body class="d-flex flex-column min-vh-100 m-0">
+    <!-- Main Content -->
+<main class="flex-grow-1 d-flex flex-column justify-content-center mt-0">
+    <div class="row align-items-center justify-content-center">
             <!-- Logo -->
-            <div class="col-12 text-center">
+            <!-- <div class="col-12 text-center">
                 <img id="logo" src="/stayEase.webp" alt="Logo" class="rounded-circle img-fluid" style="max-width: 200px;" />
-            </div>
+            </div> -->
 
             <!-- Login Form -->
-            <div class="col-12 col-md-6 col-lg-4 mt-4">
-                <form class="needs-validation" novalidate method="post" action="/api/loginPage">
+            <div class="col-md-5">
+                <h1 class="mt-0 mb-3 text-gradient heading_login_text">Host Login</h1>
+                <form class="needs-validation" novalidate method="post" action="/api/userLogin/hostLogin">
                     <!-- Email Input -->
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Username</label>
@@ -44,7 +44,7 @@
                     <!-- Sign Up Link -->
                     <div class="text-center mt-3">
                         <span>Not a user?</span>
-                        <a href="/api/register/user" class="text-primary">Sign Up</a>
+                        <a href="/api/register/hostSignUp" class="text-primary">Sign Up</a>
                     </div>
                 </form>
             </div>

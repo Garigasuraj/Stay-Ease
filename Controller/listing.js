@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 const airBnb = require("../Models/listingSchema")
 
+module.exports.HosthomePage = async (req,res,next)=>{
+    let listing_data = await airBnb.find({})
+    res.render('hostHome.ejs')
+}
 
 module.exports.homePage = async (req,res,next)=>{
     let listing_data = await airBnb.find({})
