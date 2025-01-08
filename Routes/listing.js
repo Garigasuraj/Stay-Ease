@@ -8,6 +8,8 @@ const {isLoggedIn,validateUpdatedFormData,validateCreateFormData} = require('../
 const {validate_deleted_listing} = require('../Controller/listing.js')
 const controller = require('../Controller/listing.js')
 
+router.get('/hostHome',isLoggedIn,asyncErrorHandler(controller.HosthomePage))
+
 router.get('/home',isLoggedIn,asyncErrorHandler(controller.homePage))
 
 // To read specific post (READ)

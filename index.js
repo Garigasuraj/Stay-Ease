@@ -12,12 +12,12 @@ const ejsMate = require('ejs-mate')
 const CustomError = require('./util/CustomError.js')
 
 const passport = require('passport')
-const Local_strategy = require('passport-local')
-const User = require('./Models/loginSchema.js')
+const configPassport = require('./passport.js')
 
 const userLogin = require('./Routes/login.js')
 const listing = require('./Routes/listing.js')
 const review = require('./Routes/review.js')
+const hostLogin = require('./Routes/host.js')
 // const SQL_connection = require('./SQL/SQLServer.js')
 
 app.use(method_override('_method'))
@@ -34,17 +34,21 @@ app.engine('ejs',ejsMate)
 // EJS Template response 
 //app.set is used for set application level configuration
 app.set('view engine','ejs')
+
 // use this for multiple views 
 app.set('views',[
     path.join(__dirname,"Ejs_template/Login"),
     path.join(__dirname,"Ejs_template"),
-    path.join(__dirname,"Ejs_template/Listing")
+    path.join(__dirname,"Ejs_template/Listing"),
+    path.join(__dirname,"Ejs_template/Host")
 ])
 
 // middlewear for serving static files
 app.use(express.static(path.join(__dirname,'Public/javascript')))
 app.use(express.static(path.join(__dirname,'Public/Styles')))
 app.use(express.static(path.join(__dirname,'Public/images')))
+
+mongoose_connection()
 
 const expressSession = {
     secret: "secretkey",
@@ -61,12 +65,7 @@ app.use(flash())
 app.use(passport.initialize());
 app.use(passport.session());
 
-// use static authenticate method of model in LocalStrategy
-passport.use(new Local_strategy(User.authenticate()));
-
-// use static serialize and deserialize of model for passport session support (maintain consistant login)
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+configPassport()
 
 // Middleware to show flash messages
 app.use((req,res,next)=>{
@@ -75,7 +74,9 @@ app.use((req,res,next)=>{
 
     res.locals.login = req.flash("login")
     res.locals.userlogin =  req.user
+
     next()
+    
 })
 //======================================
 
@@ -85,6 +86,8 @@ app.use('/api',listing)
 app.use('/api',review)
 
 app.use('/api',userLogin)
+
+app.use('/api',hostLogin)
 
 // Global Custom Error middlewear
 app.use(CustomError)
