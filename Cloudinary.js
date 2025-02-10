@@ -11,7 +11,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
       folder: 'Listing Images',
-      allowed_formats: ['jpg', 'png', 'jpeg'],
+      allowed_formats: ['jpg', 'png', 'jpeg',"avif"],
       public_id: (req, file) => 'computed-filename-using-request',
     },
     limits: { fileSize: 5 * 1024 * 1024 } // Limit to 5 MB

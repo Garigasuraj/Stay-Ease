@@ -1,24 +1,31 @@
 <% layout("../layouts/boilerPlate") %>
-<body class="d-flex flex-column min-vh-100">
-    <main class="flex-grow-1 d-flex flex-column justify-content-center mt-0">
-    <div class="row row-cols-xl-6 row-cols-lg-5 row-cols-md-4 row-cols-sm-3 row-cols-1" style="margin-left: 4.5%">
-        <%listing_data.map(ele =>{%>
+<body class="d-flex flex-column min-vh-60" style="background-color: #f8f9fa;">
+    <main class="flex-grow-1 d-flex flex-column justify-content-center mt-4">
+        <div class="container-fluid px-5">
+            <div class="row g-4 p-0 m-0">
+                <% listing_data.map(ele => { %>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="card modern-card border-0 shadow-sm">
+                            <a href="/api/specific_item/<%= ele._id %>" class="text-decoration-none text-dark">
+                                <!-- Image Section -->
+                                <div class="card-img-container">
+                                    <img src="<%= ele.image.url %>" class="card-img-top" alt="Listing Image">
+                                </div>
 
-            <div class="card col p-0 m-3 shadow border-0">
-                <a style="text-decoration: none; color: black;" href="/api/specific_item/<%=ele._id%>">
-                <img src="<%= ele.image.url%>" class="card-img-top" alt="Listing Image">
-                <div class="card-body">
-                  <h5 class="card-title"><%= ele.title %></h5>
-                  <div class="card-text"><%= ele.location%>,<%= ele.country%></div>
-                  <div class="card-text">$<%= ele.price.toLocaleString('en-US')%></div>
-                </div>
-            </a>
-              </div>
-        <%})%>
-    </div></main>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold"><%= ele.title %></h5>
+                                    <p class="text-muted mb-2"><%= ele.location %>, <%= ele.country %></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-primary fw-bold">$<%= ele.price.toLocaleString('en-US') %></span>
+                                        <span class="badge bg-success p-2 rounded-pill">Available</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </main>
 </body>
-
-
-
-
-

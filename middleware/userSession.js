@@ -1,10 +1,19 @@
 const {createPostValidation} = require('../serverValidation/joiValidation.js');
 
-module.exports.isLoggedIn = (req,res,next)=>{
+module.exports.isUserLoggedIn = (req,res,next)=>{
     if(!req.isAuthenticated()){
         // use flash
         req.session.redirectUrl = req.originalUrl
         return res.redirect('/api/loginPage')
+    }
+    next()
+}
+
+module.exports.isHostLoggedIn = (req,res,next)=>{
+    if(!req.isAuthenticated()){
+        // use flash
+        req.session.redirectUrl = req.originalUrl
+        return res.redirect('/api/hostLoginPage')
     }
     next()
 }

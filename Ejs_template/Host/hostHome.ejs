@@ -1,10 +1,53 @@
 <% layout("../layouts/boilerPlate") %>
-<!-- Need to change host boiler plate -->
-<body class="d-flex flex-column min-vh-100">
-<h1>Succesfully logged in host page</h1>
+<body class="d-flex flex-column">
+  <main class="flex-grow-1 d-flex flex-column justify-content-center mt-0 min-vh-50">
+    <div class="row row-cols-xl-6 row-cols-lg-5 row-cols-md-4 row-cols-sm-3 row-cols-1" style="margin-left: 4.5%">
+      <% if(Host_listing_data.length) { %>
+        <% Host_listing_data.forEach(ele => { %>
+          <div class="card col p-0 m-3 shadow border-0">
+            <a style="text-decoration: none; color: black;" href="/api/specific_item/<%= ele._id %>">
+              <img src="<%= ele.image.url %>" class="card-img-top" alt="Listing Image">
+              <div class="card-body">
+                <h5 class="card-title"><%= ele.title %></h5>
+                <div class="card-text"><%= ele.location %>, <%= ele.country %></div>
+                <div class="card-text">$<%= ele.price.toLocaleString('en-US') %></div>
+              </div>
+            </a>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="w-100">
+          <div class="container py-5">
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                <div class="empty-listing-card text-center p-4 shadow-sm rounded">
+                  <!-- Lottie Animation Container -->
+                  <div id="lottie-animation" style="width: 300px; height: 300px; margin: auto;"></div>
+                  <h3 class="mt-4">No Listings Yet</h3>
+                  <p class="mb-4">
+                   It looks like you haven't created any listings.
+                    Start by adding your first property and begin your hosting journey today.
+                  </p>
+                  <a href="/api/createNew" class="btn btn-primary">Create a Listing</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>    
+    </div>
+  </main>
+  <!-- Include Lottie Web Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js"></script>
+<script>
+  // Initialize the Lottie animation
+  lottie.loadAnimation({
+    container: document.getElementById('lottie-animation'), // the dom element that will contain the animation
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'https://assets5.lottiefiles.com/packages/lf20_HpFqiS.json' // Replace with your chosen animation JSON URL
+  });
+</script>
+
 </body>
-
-
-
-
-

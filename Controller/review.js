@@ -6,7 +6,8 @@ module.exports.createReview = async(req,res)=>{
     let current_listing = await airBnb.findById(id)
 
     let data = new Review(review)
-
+    data.name = req.user.username
+    
     current_listing.reviews.push(data)
     await current_listing.save()
     await data.save()

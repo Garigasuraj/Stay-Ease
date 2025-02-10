@@ -2,7 +2,8 @@
 const mongoose = require('mongoose')
 const Review = require('./reviewSchema.js')
 const user = require('./loginSchema.js')
-const { string } = require('joi')
+const { string, required } = require('joi')
+const { type } = require('os')
 
 const listing_schema = mongoose.Schema({
     title:{
@@ -30,7 +31,7 @@ const listing_schema = mongoose.Schema({
         {type:mongoose.Schema.Types.ObjectId , ref:"customer_review"}
     ],
     listOwner: {
-        type:mongoose.Schema.Types.ObjectId, ref:"user"
+        type:mongoose.Schema.Types.ObjectId, ref:"auth"
     }
 })
 

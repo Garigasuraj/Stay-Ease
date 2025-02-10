@@ -25,16 +25,22 @@ module.exports.register = async(req,res,next)=>{
             return next(err)
         }
         req.flash("success","User successfully registered")
-        res.redirect('/api/home')
+        res.redirect('/api/loginPage')
     })
 }
 
-module.exports.endSession = async(req,res,next)=>{
+module.exports.endUserSession = async(req,res,next)=>{
     req.logout(err =>{
-        if(err){
-            return next(err)
-        }
+        if(err){return next(err)}
     })
     req.flash("success","successfully logged out")
     res.redirect("/api/loginPage")
+}
+
+module.exports.endHostSession = async(req,res,next)=>{
+    req.logout(err =>{
+        if(err){return next(err)}
+    })
+    req.flash("success","successfully logged out")
+    res.redirect("/api/hostLoginPage")
 }

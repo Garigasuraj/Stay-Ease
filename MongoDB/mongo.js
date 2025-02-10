@@ -27,7 +27,7 @@ const insert_data = async ()=>{
         await Review.deleteMany({})
         data.listingdata = data.listingdata.map(ele => ({...ele,
             image:{url: ele.image},
-            listOwner:"674a3c9948f162281c22dd76"}))
+            listOwner:"677e2e811f57ce6609ec5860"}))
         await airBnb.insertMany(data.listingdata)
         console.log("Data inserted successfull")
     }

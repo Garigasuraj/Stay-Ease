@@ -2,6 +2,9 @@
 const mongoose = require('mongoose')
 
 const review_schema = mongoose.Schema({
+    name:{
+        type:String, required: true
+    },
     rating: {
         type:String, required:[true,"Rating is required!"]
     },

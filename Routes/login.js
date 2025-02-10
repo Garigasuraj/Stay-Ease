@@ -12,9 +12,17 @@ router.get('/loginPage',(controller.login))
     passport.authenticate('local',{failureRedirect:'/api/loginPage',failureFlash:true}), (req,res,next)=>{
         if(req.user.role !== process.env.CUSTOMER_KEY){
             req.flash("error","Invalid User login ")
-            return res.redirect('/api/loginPage')
+            // enables better way to save the flash info in session and logouts the user
+            req.logOut(err=>{
+                if(err){
+                    return next(err)
+                }
+                res.redirect('/api/loginPage')
+            })
         }
-        next()
+        else{
+            next()
+        }
     },
     asyncErrorHandler(controller.authenticate))
 
@@ -24,5 +32,6 @@ router.get('/register/user',controller.signup)
 router.post('/usersignup',asyncErrorHandler(controller.register))
 
 // To end user session
-router.get('/endSession',(controller.endSession))
+router.get('/endUserSession',(controller.endUserSession))
+router.get('/endHostSession',(controller.endHostSession))
 module.exports = router
