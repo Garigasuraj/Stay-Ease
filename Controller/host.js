@@ -25,7 +25,7 @@ module.exports.register = async(req,res,next)=>{
             return next(err)
         }
         req.flash("success","User successfully registered")
-        res.redirect('/api/hostHome')
+        res.redirect('/api/hostLoginPage')
     })
 }
 

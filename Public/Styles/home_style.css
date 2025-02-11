@@ -1,15 +1,11 @@
-.apartment_listing{
-    list-style: none;
-}
-.w-80{
-    width: 70%;
-}
-.w-35{
-    width: 30%;
-}
-.w-40{
-    width: 40%;
-}
+.apartment_listing{list-style: none;}
+.w-80{width: 70%;}
+.w-35{width: 30%;}
+.w-40{width: 40%;}.w-70{width: 70%;}
+.w-90{width: 90;}
+.min-vh-75 {min-height: 75vh;}
+.min-vh-50 {min-height: 50vh;}
+.min-vh-60 {min-height: 60vh;}
 .decoration span:hover{
     width: 75%;
     text-decoration: underline;
@@ -69,6 +65,8 @@
 .star-rating label:hover ~ label {
     color: gold;
 }
+
+/* linear gradient */
 .text-gradient {
     background: linear-gradient(270deg, #b65544, #d28c22, #FF5722);
     -webkit-background-clip: text;
@@ -76,4 +74,57 @@
 }
 .heading_login_text{
     font-size: 80px;
+}
+/* fot hostHOme.ejs */
+.empty-listing-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+    background-color: #fff;
+  }
+  .empty-listing-card img {
+    max-width: 150px;
+    margin-bottom: 1rem;
+  }
+
+/* Modern Card Design CSS fo listing */
+body {
+    font-family: 'Inter', sans-serif;
+}
+.modern-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.modern-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.card-img-container {
+    overflow: hidden;
+    border-bottom: 3px solid #e9ecef;
+}
+.card-img-top {
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.modern-card:hover .card-img-top {
+    transform: scale(1.1);
+}
+.card-body {
+    padding: 1.5rem;
+}
+.card-title {
+    font-size: 1.4rem;
+}
+.badge {
+    font-size: 0.85rem;
+}
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
 }

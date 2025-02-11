@@ -3,6 +3,7 @@ module.exports = (error,req,res,next)=>{
     const error_name  = error.name
     let description = error.description || {[error_name]: error.message}
     console.log(`From custom error: ${error}`)
+    console.log(description)
     // res.status(status).json({
     //     status:status, description
     // })

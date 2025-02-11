@@ -1,10 +1,21 @@
-<nav class="navbar navbar-expand-md bg-body-tertiary sticky-top">
-  <div class="container-fluid fs-5">
+<nav class="navbar navbar-expand-md navbar-light bg-body-tertiary sticky-top shadow-sm py-2">
+  <div class="container-fluid">
     <!-- BRAND / LOGO -->
-    <a class="navbar-brand" href="/api/home">
-      <!-- your SVG or brand text here -->
-      <span style="color: rgb(200, 33, 33);">StayEase</span>
-    </a>
+    <% if (userlogin) { %>
+      <% if (userlogin.role === process.env.CUSTOMER_KEY) { %>
+        <a class="navbar-brand text-danger" href="/api/home" style="font-size: 1.5rem; margin-left: 16px;">
+          StayEase
+        </a>
+      <% } else if (userlogin.role === process.env.HOST_KEY) { %>
+        <a class="navbar-brand text-danger" href="/api/hostHome" style="font-size: 1.5rem; margin-left: 16px;">
+          StayEase
+        </a>
+      <% } %>
+    <% } else { %>
+      <a class="navbar-brand text-danger" onclick="event.preventDefault()" href="/" style="font-size: 1.5rem; margin-left: 16px;">
+        StayEase
+      </a>
+    <% } %>
 
     <!-- Toggler button for mobile -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,45 +23,38 @@
     </button>
 
     <!-- Collapsed content -->
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-
-      <!-- LEFT Nav Items (if you want some always on the left) -->
-      <ul class="navbar-nav me-auto">
-        <% if (userlogin && userlogin.role === process.env.HOST_KEY) { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/api/createNew">Add Property</a>
-          </li>
-        <% } else if (userlogin && userlogin.role === process.env.CUSTOMER_KEY) { %>
-          <li class="nav-item">
-            <a class="nav-link">Need to add</a>
-          </li>
-        <% } %>
-      </ul>
-
-      <!-- RIGHT Nav Items -->
-      <ul class="navbar-nav ms-auto">
+    <div class="collapse navbar-collapse justify-content-end fs-5" id="navbarNavAltMarkup">
+      <ul class="navbar-nav gap-3">
         <% if (!userlogin) { %>
-          <!-- If user NOT logged in -->
           <li class="nav-item">
-            <a class="nav-link me-2" href="/api/hostLoginPage">Host login</a>
+            <a class="nav-link text-dark" href="/api/hostLoginPage">Host Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-2" href="/api/loginPage">Log In</a>
+            <a class="nav-link text-dark" href="/api/loginPage">User Login</a>
           </li>
-        <% } else { %>
-          <!-- If user IS logged in -->
-          <% if (userlogin.role === process.env.HOST_KEY) { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/api/endSession">Sign Out</a>
-            </li>
-          <% } else if (userlogin.role === process.env.CUSTOMER_KEY) { %>
-            <li class="nav-item">
-              <a class="nav-link">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/api/endSession">Sign Out</a>
-            </li>
-          <% } %>
+        <% } else if (userlogin.role === process.env.CUSTOMER_KEY) { %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 16px;">
+              Profile
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" href="/">View Profile</a></li>
+              <li><a class="dropdown-item" href="/api/endUserSession">Sign Out</a></li>
+            </ul>
+          </li>
+        <% } else if (userlogin.role === process.env.HOST_KEY) { %>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/api/createNew">Add Property</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="hostDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 16px;">
+              Profile
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="hostDropdown">
+              <li><a class="dropdown-item" href="/">View Profile</a></li>
+              <li><a class="dropdown-item" href="/api/endHostSession">Sign Out</a></li>
+            </ul>
+          </li>
         <% } %>
       </ul>
     </div>

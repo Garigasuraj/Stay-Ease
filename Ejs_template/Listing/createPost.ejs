@@ -1,57 +1,80 @@
 <% layout("../layouts/boilerPlate") %>
-<body class="d-flex flex-column min-vh-100">
-  <main class="flex-grow-1 d-flex flex-column justify-content-center mt-0">
-        <h1 class="w-75 mt-2 offset-1">Create a new listing</h1>
-        <div class="createPost">
-            <form method="post" action="/api/createPost" class="needs-validation" novalidate enctype="multipart/form-data">
-                <label for="title">Title: </label>
-                <input class="form-control" id="title" type="text" name="create[title]" required/>
-                <div class="invalid-feedback">Please provide Title</div>
+<body class="d-flex flex-column min-vh-100 bg-light">
+  <main class="flex-grow-1 d-flex flex-column justify-content-center">
+    <div class="container py-5">
+      <h1 class="text-center mb-4 gradient-text">Create a New Listing</h1>
 
-                <label for="des">Description: </label>
-                <textarea class="form-control" id="des" name="create[description]" cols="40" rows="5" required></textarea>
-                <div class="invalid-feedback">Please provide Description</div>
+      <div class="card shadow p-4 border-0 rounded-4">
+        <form method="post" action="/api/createPost" class="needs-validation" novalidate enctype="multipart/form-data">
 
-                <label for="price">Price: </label>
-                <input class="form-control" id="price" type="number" name="create[price]" required/>
-                <div class="invalid-feedback">Please provide Price</div>
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-pencil"></i></span>
+              <input class="form-control" id="title" type="text" name="create[title]" placeholder="Enter a catchy title" required/>
+              <div class="invalid-feedback">Please provide a title</div>
+            </div>
+          </div>
 
-                <label for="location">Location: </label>
-                <input class="form-control" id="location" type="text" name="create[location]" required/>
+          <div class="mb-3">
+            <label for="des" class="form-label">Description</label>
+            <textarea class="form-control" id="des" name="create[description]" rows="5" placeholder="Provide details about your property" required></textarea>
+            <div class="invalid-feedback">Please provide a description</div>
+          </div>
 
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input class="form-control" id="price" type="number" name="create[price]" placeholder="Enter price per night" required/>
+              <div class="invalid-feedback">Please provide a price</div>
+            </div>
+          </div>
 
-                <label for="country">Country: </label>
-                <input class="form-control" id="country" type="text" name="create[country]" required/>
-                <div class="invalid-feedback">Please provide Country</div><br>
+          <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+              <input class="form-control" id="location" type="text" name="create[location]" placeholder="Enter the property location" required/>
+            </div>
+          </div>
 
-                <label for="inputGroupFile02">Image </label>
-                <div class="input-group mb-3">
-                    <input type="file" name="create[image]" class="form-control" id="inputGroupFile02">
-                </div>
-                
-                <br><br>
-                <button class="btn btn-primary">Submit</button>
-            </form>
-        </div></main>
-    <script>
-        (() => {
-  'use strict'
+          <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input class="form-control" id="country" type="text" name="create[country]" placeholder="Enter country" required/>
+            <div class="invalid-feedback">Please provide the country</div>
+          </div>
 
-  // Fetch all the forms we want too apply custom Bootstrap validation styles too
-  const forms = document.querySelectorAll('.needs-validation')
+          <div class="mb-3">
+            <label for="inputGroupFile02" class="form-label">Upload an Image</label>
+            <input type="file" name="create[image]" class="form-control" id="inputGroupFile02">
+          </div>
 
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
+          <div class="text-center">
+            <button class="btn btn-primary px-5 py-2 rounded-pill">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
 
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
-    </script>
+  <!-- Bootstrap Validation Script -->
+  <script>
+    (() => {
+      'use strict'
+      const forms = document.querySelectorAll('.needs-validation');
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
+
+  <!-- Bootstrap Icons (optional for input group icons) -->
+
 </body>
-

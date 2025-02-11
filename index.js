@@ -17,7 +17,8 @@ const configPassport = require('./passport.js')
 const userLogin = require('./Routes/login.js')
 const listing = require('./Routes/listing.js')
 const review = require('./Routes/review.js')
-const hostLogin = require('./Routes/host.js')
+const hostLogin = require('./Routes/host_login.js')
+const hostListing = require('./Routes/host_listing.js')
 // const SQL_connection = require('./SQL/SQLServer.js')
 
 app.use(method_override('_method'))
@@ -78,6 +79,7 @@ app.use((req,res,next)=>{
     next()
     
 })
+
 //======================================
 
 // route handler for home pagae
@@ -88,6 +90,8 @@ app.use('/api',review)
 app.use('/api',userLogin)
 
 app.use('/api',hostLogin)
+
+app.use('/api',hostListing)
 
 // Global Custom Error middlewear
 app.use(CustomError)
