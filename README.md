@@ -71,7 +71,6 @@ Clone the Repository:
 
 bash
 ``` javascript
-##Copy
 https://github.com/Garigasuraj/Stay-Ease.git
 cd Stay-Ease
 ```
