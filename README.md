@@ -140,7 +140,7 @@ Method	Endpoint	Description
 - DELETE	/api/bookings/:id	(Cancel a booking)
 # Future Improvements
 - Implement a React frontend for better client-side experience.
-- Add payment integration (Stripe or PayPal) for secure transactions.
+- Add payment integration for secure transactions.
 - Introduce search & filtering options for more refined property browsing.
 - Implement real-time notifications for booking confirmations.
 
