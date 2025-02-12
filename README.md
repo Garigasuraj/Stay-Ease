@@ -72,8 +72,8 @@ Clone the Repository:
 bash
 ``` javascript
 ##Copy
-git clone https://github.com/yourusername/airbnb-clone.git
-cd stayEase
+https://github.com/Garigasuraj/Stay-Ease.git
+cd Stay-Ease
 ```
 ### Install Dependencies:
 
@@ -85,8 +85,6 @@ Create a .env file and add:
 
 ### Start the Server:
 
-
-Copy
 ``` javascript
 node index.js
 ```
