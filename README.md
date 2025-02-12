@@ -32,7 +32,6 @@ The application follows the Model-View-Controller (MVC) architecture, ensuring s
 ### 🔒 Security & Middleware Enhancements:
 - Custom middleware for error handling & authentication checks.
 - Session-based authentication with role-based access control.
-- Input validation to prevent XSS & SQL injection attacks.
 
 ### ⚡ Performance Optimizations:
 - Lazy loading for images to reduce load times.
@@ -85,26 +84,41 @@ Create a .env file and add:
 ### Start the Server:
 
 ``` javascript
-node index.js
+nodemon index.js
 ```
 🚀 Your server is now running on http://localhost:4000
 
 # Project Structure:
 ```
-├── MongoDB/             # Database connection & models  
-├── Routes/              # Express.js routes  
-│   ├── login.js         # User login routes  
-│   ├── listing.js       # Property listing routes  
-│   ├── review.js        # Review management routes  
-│   ├── host_login.js    # Host authentication routes  
-│   ├── host_listing.js  # Host property management routes  
+
+├── Controller/          # Handles application logic and business logic  
+├── Routes/              # Express.js route handlers  
+├── Models/              # Mongoose schemas and database models  
+├── MongoDB/             # Database connection and configurations  
+├── middleware/          # Custom middleware functions  
+├── ErrorClass/          # Custom error-handling classes  
 ├── Public/              # Static assets (CSS, JavaScript, images)  
-├── Ejs_template/        # Server-side rendering templates  
-├── util/                # Utility functions (error handling, middleware)  
-├── index.js             # Main server file  
+│   ├── images/          # Property and user images  
+│   ├── javascript/      # Client-side JavaScript files  
+│   ├── Styles/          # CSS stylesheets  
+├── Ejs_template/        # Server-side rendering templates (EJS)  
+│   ├── Host/            # Host-specific EJS templates  
+│   ├── Listing/         # Listing-related EJS templates  
+│   ├── Login/           # User authentication templates  
+│   ├── includes/        # Reusable partials (navbar, footer, etc.)  
+│   ├── layouts/         # Layout templates for consistent UI  
+├── util/                # Utility functions (error handling, validations)  
+├── SQL/                 # SQL-related configurations (if applicable)  
+├── serverValidation/    # Validation logic for forms and data  
+├── Cloudinary.js        # Cloudinary configuration for media uploads  
+├── passport.js          # Passport.js authentication configuration  
+├── index.js             # Main server file (Express entry point)  
 ├── .env                 # Environment variables  
-├── package.json         # Dependencies and scripts  
-└── README.md            # Project documentation
+├── .gitignore           # Git ignore file  
+├── package.json         # Project dependencies and scripts  
+├── package-lock.json    # Lock file for npm dependencies  
+└── README.md            # Project documentation  
+
 ```
 
 # API Endpoints:
